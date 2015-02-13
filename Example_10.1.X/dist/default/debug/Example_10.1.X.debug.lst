@@ -1,0 +1,1686 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.21 build 54009 
+                                                                                               Mon May 26 10:50:40 2014
+
+Microchip Technology Omniscient Code Generator (Lite mode) build 54009
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	idataCOMRAM,global,class=CODE,delta=1
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1
+     8                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+    10                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    15                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text6,global,reloc=2,class=CODE,delta=1
+    17                           	psect	text7,global,reloc=2,class=CODE,delta=1
+    18                           	psect	text8,global,reloc=2,class=CODE,delta=1
+    19                           	psect	text9,global,reloc=2,class=CODE,delta=1
+    20                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    21                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    22  0000                     
+    23                           	psect	idataCOMRAM
+    24  00790D                     __pidataCOMRAM:
+    25                           	opt stack 0
+    26                           
+    27                           ;initializer for _arr
+    28  00790D  31                 	db	49
+    29  00790E  32                 	db	50
+    30  00790F  33                 	db	51
+    31  007910  41                 	db	65
+    32  007911  34                 	db	52
+    33  007912  35                 	db	53
+    34  007913  36                 	db	54
+    35  007914  42                 	db	66
+    36  007915  37                 	db	55
+    37  007916  38                 	db	56
+    38  007917  39                 	db	57
+    39  007918  43                 	db	67
+    40  007919  2A                 	db	42
+    41  00791A  30                 	db	48
+    42  00791B  23                 	db	35
+    43  00791C  44                 	db	68
+    44                           
+    45                           ;initializer for _config_1
+    46  00791D  2C                 	db	44
+    47  0000                     _PIE1bits	set	3997
+    48  0000                     _PIR1bits	set	3998
+    49  0000                     _PORTD	set	3971
+    50  0000                     _PORTDbits	set	3971
+    51  0000                     _RCREG	set	4014
+    52  0000                     _RCSTA	set	4011
+    53  0000                     _RCSTAbits	set	4011
+    54  0000                     _SPBRG	set	4015
+    55  0000                     _SPBRGH	set	4016
+    56  0000                     _TRISCbits	set	3988
+    57  0000                     _TRISD	set	3989
+    58  0000                     _TXREG	set	4013
+    59  0000                     _TXSTA	set	4012
+    60  0000                     _TXSTAbits	set	4012
+    61                           
+    62                           ; #config settings
+    63  0000                     
+    64                           	psect	cinit
+    65  007984                     __pcinit:
+    66                           	opt stack 0
+    67  007984                     start_initialization:
+    68                           	opt stack 0
+    69  007984                     __initialization:
+    70                           	opt stack 0
+    71                           
+    72                           ; Clear objects allocated to COMRAM (1 bytes)
+    73  007984  6A2C               	clrf	__pbssCOMRAM& (0+255),c
+    74                           
+    75                           ; Initialize objects allocated to COMRAM (17 bytes)
+    76                           ; load TBLPTR registers with __pidataCOMRAM
+    77  007986  0E0D               	movlw	low __pidataCOMRAM
+    78  007988  6EF6               	movwf	tblptrl,c
+    79  00798A  0E79               	movlw	high __pidataCOMRAM
+    80  00798C  6EF7               	movwf	tblptrh,c
+    81  00798E  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+    82  007990  6EF8               	movwf	tblptru,c
+    83  007992  EE00  F01B         	lfsr	0,__pdataCOMRAM
+    84  007996  EE10 F011          	lfsr	1,17
+    85  00799A                     copy_data0:
+    86  00799A  0009               	tblrd		*+
+    87  00799C  CFF5 FFEE          	movff	tablat,postinc0
+    88  0079A0  50E5               	movf	postdec1,w,c
+    89  0079A2  50E1               	movf	fsr1l,w,c
+    90  0079A4  E1FA               	bnz	copy_data0
+    91  0079A6                     end_of_initialization:
+    92                           	opt stack 0
+    93  0079A6                     __end_of__initialization:
+    94                           	opt stack 0
+    95  0079A6  0100               	movlb	0
+    96  0079A8  EFAF  F03C         	goto	_main	;jump to C main() function
+    97                           tblptru	equ	0xFF8
+    98                           tblptrh	equ	0xFF7
+    99                           tblptrl	equ	0xFF6
+   100                           tablat	equ	0xFF5
+   101                           postinc0	equ	0xFEE
+   102                           postdec1	equ	0xFE5
+   103                           fsr1l	equ	0xFE1
+   104                           
+   105                           	psect	bssCOMRAM
+   106  00002C                     __pbssCOMRAM:
+   107                           	opt stack 0
+   108  00002C                     _USART_Status:
+   109                           	opt stack 0
+   110  00002C                     	ds	1
+   111                           tblptru	equ	0xFF8
+   112                           tblptrh	equ	0xFF7
+   113                           tblptrl	equ	0xFF6
+   114                           tablat	equ	0xFF5
+   115                           postinc0	equ	0xFEE
+   116                           postdec1	equ	0xFE5
+   117                           fsr1l	equ	0xFE1
+   118                           
+   119                           	psect	dataCOMRAM
+   120  00001B                     __pdataCOMRAM:
+   121                           	opt stack 0
+   122  00001B                     _arr:
+   123                           	opt stack 0
+   124  00001B                     	ds	16
+   125  00002B                     _config_1:
+   126                           	opt stack 0
+   127  00002B                     	ds	1
+   128                           tblptru	equ	0xFF8
+   129                           tblptrh	equ	0xFF7
+   130                           tblptrl	equ	0xFF6
+   131                           tablat	equ	0xFF5
+   132                           postinc0	equ	0xFEE
+   133                           postdec1	equ	0xFE5
+   134                           fsr1l	equ	0xFE1
+   135                           
+   136                           	psect	cstackCOMRAM
+   137  000001                     __pcstackCOMRAM:
+   138                           	opt stack 0
+   139  000001                     ?_Delay1KTCYx:
+   140                           	opt stack 0
+   141  000001                     ?_OpenUSART:
+   142                           	opt stack 0
+   143  000001                     ?_WriteUSART:
+   144                           	opt stack 0
+   145  000001                     OpenUSART@config:
+   146                           	opt stack 0
+   147  000001                     WriteUSART@data:
+   148                           	opt stack 0
+   149  000001                     Delay1KTCYx@unit:
+   150                           	opt stack 0
+   151                           
+   152                           ; 1 bytes @ 0x0
+   153  000001                     	ds	1
+   154  000002                     ?_delay_ms:
+   155                           	opt stack 0
+   156  000002                     ?_Write:
+   157                           	opt stack 0
+   158  000002                     ?_delay_us:
+   159                           	opt stack 0
+   160  000002                     delay_ms@t:
+   161                           	opt stack 0
+   162  000002                     delay_us@t:
+   163                           	opt stack 0
+   164  000002                     Write@data:
+   165                           	opt stack 0
+   166  000002                     OpenUSART@spbrg:
+   167                           	opt stack 0
+   168                           
+   169                           ; 2 bytes @ 0x1
+   170  000002                     	ds	1
+   171  000003                     ??_delay_ms:
+   172  000003                     ??_delay_us:
+   173                           
+   174                           ; 0 bytes @ 0x2
+   175  000003                     	ds	1
+   176  000004                     ?_ConfigUSART:
+   177                           	opt stack 0
+   178  000004                     delay_ms@i:
+   179                           	opt stack 0
+   180  000004                     delay_us@i:
+   181                           	opt stack 0
+   182  000004                     ConfigUSART@config_1:
+   183                           	opt stack 0
+   184                           
+   185                           ; 1 bytes @ 0x3
+   186  000004                     	ds	1
+   187  000005                     ?_Print_key:
+   188                           	opt stack 0
+   189  000005                     Print_key@element:
+   190                           	opt stack 0
+   191  000005                     ConfigUSART@config_2:
+   192                           	opt stack 0
+   193                           
+   194                           ; 1 bytes @ 0x4
+   195  000005                     	ds	1
+   196  000006                     Print_key@a:
+   197                           	opt stack 0
+   198                           
+   199                           ; 1 bytes @ 0x5
+   200  000006                     	ds	1
+   201  000007                     ??_Print_key:
+   202                           
+   203                           ; 0 bytes @ 0x6
+   204  000007                     	ds	1
+   205  000008                     ??_GetKey:
+   206                           
+   207                           ; 0 bytes @ 0x7
+   208  000008                     	ds	1
+   209  000009                     _GetKey$95:
+   210                           	opt stack 0
+   211                           
+   212                           ; 1 bytes @ 0x8
+   213  000009                     	ds	1
+   214  00000A                     _GetKey$96:
+   215                           	opt stack 0
+   216                           
+   217                           ; 1 bytes @ 0x9
+   218  00000A                     	ds	1
+   219  00000B                     _GetKey$97:
+   220                           	opt stack 0
+   221                           
+   222                           ; 1 bytes @ 0xA
+   223  00000B                     	ds	1
+   224  00000C                     _GetKey$98:
+   225                           	opt stack 0
+   226                           
+   227                           ; 1 bytes @ 0xB
+   228  00000C                     	ds	1
+   229  00000D                     _GetKey$99:
+   230                           	opt stack 0
+   231                           
+   232                           ; 1 bytes @ 0xC
+   233  00000D                     	ds	1
+   234  00000E                     _GetKey$100:
+   235                           	opt stack 0
+   236                           
+   237                           ; 1 bytes @ 0xD
+   238  00000E                     	ds	1
+   239  00000F                     _GetKey$101:
+   240                           	opt stack 0
+   241                           
+   242                           ; 1 bytes @ 0xE
+   243  00000F                     	ds	1
+   244  000010                     _GetKey$102:
+   245                           	opt stack 0
+   246                           
+   247                           ; 1 bytes @ 0xF
+   248  000010                     	ds	1
+   249  000011                     _GetKey$103:
+   250                           	opt stack 0
+   251                           
+   252                           ; 1 bytes @ 0x10
+   253  000011                     	ds	1
+   254  000012                     _GetKey$104:
+   255                           	opt stack 0
+   256                           
+   257                           ; 1 bytes @ 0x11
+   258  000012                     	ds	1
+   259  000013                     _GetKey$105:
+   260                           	opt stack 0
+   261                           
+   262                           ; 1 bytes @ 0x12
+   263  000013                     	ds	1
+   264  000014                     _GetKey$106:
+   265                           	opt stack 0
+   266                           
+   267                           ; 1 bytes @ 0x13
+   268  000014                     	ds	1
+   269  000015                     _GetKey$107:
+   270                           	opt stack 0
+   271                           
+   272                           ; 1 bytes @ 0x14
+   273  000015                     	ds	1
+   274  000016                     _GetKey$108:
+   275                           	opt stack 0
+   276                           
+   277                           ; 1 bytes @ 0x15
+   278  000016                     	ds	1
+   279  000017                     _GetKey$109:
+   280                           	opt stack 0
+   281                           
+   282                           ; 1 bytes @ 0x16
+   283  000017                     	ds	1
+   284  000018                     _GetKey$110:
+   285                           	opt stack 0
+   286                           
+   287                           ; 1 bytes @ 0x17
+   288  000018                     	ds	1
+   289  000019                     GetKey@row:
+   290                           	opt stack 0
+   291                           
+   292                           ; 1 bytes @ 0x18
+   293  000019                     	ds	1
+   294  00001A                     ??_main:
+   295                           
+   296                           ; 0 bytes @ 0x19
+   297  00001A                     	ds	1
+   298                           tblptru	equ	0xFF8
+   299                           tblptrh	equ	0xFF7
+   300                           tblptrl	equ	0xFF6
+   301                           tablat	equ	0xFF5
+   302                           postinc0	equ	0xFEE
+   303                           postdec1	equ	0xFE5
+   304                           fsr1l	equ	0xFE1
+   305                           
+   306 ;;
+   307 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   308 ;;
+   309 ;; *************** function _main *****************
+   310 ;; Defined at:
+   311 ;;		line 49 in file "main.c"
+   312 ;; Parameters:    Size  Location     Type
+   313 ;;		None
+   314 ;; Auto vars:     Size  Location     Type
+   315 ;;		None
+   316 ;; Return value:  Size  Location     Type
+   317 ;;		None               void
+   318 ;; Registers used:
+   319 ;;		wreg, status,2, status,0, cstack
+   320 ;; Tracked objects:
+   321 ;;		On entry : 0/0
+   322 ;;		On exit  : 0/0
+   323 ;;		Unchanged: 0/0
+   324 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   325 ;;      Params:         0       0       0       0       0       0       0       0       0
+   326 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   327 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   328 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   329 ;;Total ram usage:        1 bytes
+   330 ;; Hardware stack levels required when called:    4
+   331 ;; This function calls:
+   332 ;;		_GetKey
+   333 ;;		_delay_us
+   334 ;;		_ConfigUSART
+   335 ;; This function is called by:
+   336 ;;		Startup code after reset
+   337 ;; This function uses a non-reentrant model
+   338 ;;
+   339                           
+   340                           	psect	text0
+   341  00795E                     __ptext0:
+   342                           	opt stack 0
+   343  00795E                     _main:
+   344                           	opt stack 26
+   345                           
+   346                           ;main.c: 50: TRISD = 0XF0;
+   347                           
+   348                           ;incstack = 0
+   349                           ;incstack = 0
+   350  00795E  0EF0               	movlw	240
+   351  007960  6E95               	movwf	3989,c	;volatile
+   352                           
+   353                           ;main.c: 51: ConfigUSART(config_1, ((20000000/9600/64)-1));
+   354  007962  C02B  F004         	movff	_config_1,?_ConfigUSART
+   355  007966  6E1A               	movwf	??_main& (0+255),c
+   356  007968  0E1F               	movlw	31
+   357  00796A  6E05               	movwf	?_ConfigUSART+1,c
+   358  00796C  501A               	movf	??_main& (0+255),w,c
+   359  00796E  EC7E  F03C         	call	_ConfigUSART	;wreg free
+   360  007972                     l1317:
+   361                           
+   362                           ;main.c: 53: {
+   363                           ;main.c: 54: GetKey();
+   364  007972  EC21  F03D         	call	_GetKey	;wreg free
+   365                           
+   366                           ;main.c: 55: delay_us(1);
+   367  007976  6E1A               	movwf	??_main& (0+255),c
+   368  007978  0E01               	movlw	1
+   369  00797A  6E02               	movwf	?_delay_us,c
+   370  00797C  501A               	movf	??_main& (0+255),w,c
+   371  00797E  EC9F  F03C         	call	_delay_us	;wreg free
+   372  007982  D7F7               	goto	l1317
+   373  007984                     __end_of_main:
+   374                           	opt stack 0
+   375                           tblptru	equ	0xFF8
+   376                           tblptrh	equ	0xFF7
+   377                           tblptrl	equ	0xFF6
+   378                           tablat	equ	0xFF5
+   379                           postinc0	equ	0xFEE
+   380                           postdec1	equ	0xFE5
+   381                           fsr1l	equ	0xFE1
+   382                           
+   383 ;; *************** function _ConfigUSART *****************
+   384 ;; Defined at:
+   385 ;;		line 20 in file "uart.c"
+   386 ;; Parameters:    Size  Location     Type
+   387 ;;  config_1        1    3[COMRAM] unsigned char 
+   388 ;;  config_2        1    4[COMRAM] unsigned char 
+   389 ;; Auto vars:     Size  Location     Type
+   390 ;;		None
+   391 ;; Return value:  Size  Location     Type
+   392 ;;		None               void
+   393 ;; Registers used:
+   394 ;;		wreg, status,2, cstack
+   395 ;; Tracked objects:
+   396 ;;		On entry : 0/0
+   397 ;;		On exit  : 0/0
+   398 ;;		Unchanged: 0/0
+   399 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   400 ;;      Params:         2       0       0       0       0       0       0       0       0
+   401 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   402 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   403 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   404 ;;Total ram usage:        2 bytes
+   405 ;; Hardware stack levels used:    1
+   406 ;; Hardware stack levels required when called:    1
+   407 ;; This function calls:
+   408 ;;		_OpenUSART
+   409 ;; This function is called by:
+   410 ;;		_main
+   411 ;; This function uses a non-reentrant model
+   412 ;;
+   413                           
+   414                           	psect	text1
+   415  0078FC                     __ptext1:
+   416                           	opt stack 0
+   417  0078FC                     _ConfigUSART:
+   418                           	opt stack 28
+   419                           
+   420                           ;uart.c: 21: OpenUSART(config_1, config_2);
+   421                           
+   422                           ;incstack = 0
+   423                           ;incstack = 0
+   424  0078FC  C004  F001         	movff	ConfigUSART@config_1,?_OpenUSART
+   425  007900  C005  F002         	movff	ConfigUSART@config_2,?_OpenUSART+1
+   426  007904  6A03               	clrf	?_OpenUSART+2,c
+   427  007906  ECF3  F03C         	call	_OpenUSART	;wreg free
+   428  00790A  0012               	return	
+   429  00790C                     __end_of_ConfigUSART:
+   430                           	opt stack 0
+   431                           tblptru	equ	0xFF8
+   432                           tblptrh	equ	0xFF7
+   433                           tblptrl	equ	0xFF6
+   434                           tablat	equ	0xFF5
+   435                           postinc0	equ	0xFEE
+   436                           postdec1	equ	0xFE5
+   437                           fsr1l	equ	0xFE1
+   438                           
+   439 ;; *************** function _OpenUSART *****************
+   440 ;; Defined at:
+   441 ;;		line 74 in file "C:\Program Files (x86)\Microchip\xc8\v1.21\sources\pic18\plib\USART\uopen.c"
+   442 ;; Parameters:    Size  Location     Type
+   443 ;;  config          1    0[COMRAM] unsigned char 
+   444 ;;  spbrg           2    1[COMRAM] unsigned int 
+   445 ;; Auto vars:     Size  Location     Type
+   446 ;;		None
+   447 ;; Return value:  Size  Location     Type
+   448 ;;		None               void
+   449 ;; Registers used:
+   450 ;;		wreg, status,2
+   451 ;; Tracked objects:
+   452 ;;		On entry : 0/0
+   453 ;;		On exit  : 0/0
+   454 ;;		Unchanged: 0/0
+   455 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   456 ;;      Params:         3       0       0       0       0       0       0       0       0
+   457 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   458 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   459 ;;      Totals:         3       0       0       0       0       0       0       0       0
+   460 ;;Total ram usage:        3 bytes
+   461 ;; Hardware stack levels used:    1
+   462 ;; This function calls:
+   463 ;;		Nothing
+   464 ;; This function is called by:
+   465 ;;		_ConfigUSART
+   466 ;; This function uses a non-reentrant model
+   467 ;;
+   468                           
+   469                           	psect	text2
+   470  0079E6                     __ptext2:
+   471                           	opt stack 0
+   472  0079E6                     _OpenUSART:
+   473                           	opt stack 28
+   474                           
+   475                           ;incstack = 0
+   476                           ;incstack = 0
+   477  0079E6  0E00               	movlw	0
+   478  0079E8  6EAC               	movwf	4012,c	;volatile
+   479  0079EA  0E00               	movlw	0
+   480  0079EC  6EAB               	movwf	4011,c	;volatile
+   481  0079EE  B001               	btfsc	OpenUSART@config,0,c
+   482  0079F0  88AC               	bsf	4012,4,c	;volatile
+   483  0079F2  A201               	btfss	OpenUSART@config,1,c
+   484  0079F4  D002               	goto	l249
+   485  0079F6  8CAC               	bsf	4012,6,c	;volatile
+   486  0079F8  8CAB               	bsf	4011,6,c	;volatile
+   487  0079FA                     l249:
+   488  0079FA  B401               	btfsc	OpenUSART@config,2,c
+   489  0079FC  8EAC               	bsf	4012,7,c	;volatile
+   490  0079FE  A601               	btfss	OpenUSART@config,3,c
+   491  007A00  D002               	goto	l251
+   492  007A02  88AB               	bsf	4011,4,c	;volatile
+   493  007A04  D001               	goto	l252
+   494  007A06                     l251:
+   495  007A06  8AAB               	bsf	4011,5,c	;volatile
+   496  007A08                     l252:
+   497  007A08  B801               	btfsc	OpenUSART@config,4,c
+   498  007A0A  84AC               	bsf	4012,2,c	;volatile
+   499  007A0C  989E               	bcf	3998,4,c	;volatile
+   500  007A0E  BA01               	btfsc	OpenUSART@config,5,c
+   501  007A10  86AB               	bsf	4011,3,c	;volatile
+   502  007A12  AC01               	btfss	OpenUSART@config,6,c
+   503  007A14  D002               	goto	l255
+   504  007A16  8A9D               	bsf	3997,5,c	;volatile
+   505  007A18  D001               	goto	l256
+   506  007A1A                     l255:
+   507  007A1A  9A9D               	bcf	3997,5,c	;volatile
+   508  007A1C                     l256:
+   509  007A1C  9A9E               	bcf	3998,5,c	;volatile
+   510  007A1E  AE01               	btfss	OpenUSART@config,7,c
+   511  007A20  D002               	goto	l257
+   512  007A22  889D               	bsf	3997,4,c	;volatile
+   513  007A24  D001               	goto	l258
+   514  007A26                     l257:
+   515  007A26  989D               	bcf	3997,4,c	;volatile
+   516  007A28                     l258:
+   517  007A28  C002  FFAF         	movff	OpenUSART@spbrg,4015	;volatile
+   518  007A2C  5003               	movf	OpenUSART@spbrg+1,w,c
+   519  007A2E  6EB0               	movwf	4016,c	;volatile
+   520  007A30  8AAC               	bsf	4012,5,c	;volatile
+   521  007A32  8EAB               	bsf	4011,7,c	;volatile
+   522  007A34  9C94               	bcf	3988,6,c	;volatile
+   523  007A36  8E94               	bsf	3988,7,c	;volatile
+   524  007A38  B8AC               	btfsc	4012,4,c	;volatile
+   525  007A3A  BEAC               	btfsc	4012,7,c	;volatile
+   526  007A3C  D001               	goto	l260
+   527  007A3E  8C94               	bsf	3988,6,c	;volatile
+   528  007A40                     l260:
+   529  007A40  0012               	return	
+   530  007A42                     __end_of_OpenUSART:
+   531                           	opt stack 0
+   532                           tblptru	equ	0xFF8
+   533                           tblptrh	equ	0xFF7
+   534                           tblptrl	equ	0xFF6
+   535                           tablat	equ	0xFF5
+   536                           postinc0	equ	0xFEE
+   537                           postdec1	equ	0xFE5
+   538                           fsr1l	equ	0xFE1
+   539                           
+   540 ;; *************** function _delay_us *****************
+   541 ;; Defined at:
+   542 ;;		line 28 in file "delay.c"
+   543 ;; Parameters:    Size  Location     Type
+   544 ;;  t               1    1[COMRAM] unsigned char 
+   545 ;; Auto vars:     Size  Location     Type
+   546 ;;  i               1    3[COMRAM] unsigned char 
+   547 ;; Return value:  Size  Location     Type
+   548 ;;		None               void
+   549 ;; Registers used:
+   550 ;;		wreg, status,2, status,0, cstack
+   551 ;; Tracked objects:
+   552 ;;		On entry : 0/0
+   553 ;;		On exit  : 0/0
+   554 ;;		Unchanged: 0/0
+   555 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   556 ;;      Params:         1       0       0       0       0       0       0       0       0
+   557 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   558 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   559 ;;      Totals:         3       0       0       0       0       0       0       0       0
+   560 ;;Total ram usage:        3 bytes
+   561 ;; Hardware stack levels used:    1
+   562 ;; Hardware stack levels required when called:    1
+   563 ;; This function calls:
+   564 ;;		_Delay1KTCYx
+   565 ;; This function is called by:
+   566 ;;		_main
+   567 ;; This function uses a non-reentrant model
+   568 ;;
+   569                           
+   570                           	psect	text3
+   571  00793E                     __ptext3:
+   572                           	opt stack 0
+   573  00793E                     _delay_us:
+   574                           	opt stack 28
+   575                           
+   576                           ;delay.c: 29: unsigned char i;
+   577                           ;delay.c: 30: for (i=0;i<=t;i++)
+   578                           
+   579                           ;incstack = 0
+   580                           ;incstack = 0
+   581  00793E  6E03               	movwf	??_delay_us& (0+255),c
+   582  007940  0E00               	movlw	0
+   583  007942  6E04               	movwf	delay_us@i,c
+   584  007944  5003               	movf	??_delay_us& (0+255),w,c
+   585  007946  D007               	goto	l1051
+   586  007948                     l1047:
+   587                           
+   588                           ;delay.c: 31: Delay1KTCYx(1);
+   589  007948  6E03               	movwf	??_delay_us& (0+255),c
+   590  00794A  0E01               	movlw	1
+   591  00794C  6E01               	movwf	?_Delay1KTCYx,c
+   592  00794E  5003               	movf	??_delay_us& (0+255),w,c
+   593  007950  EC68  F03C         	call	_Delay1KTCYx	;wreg free
+   594  007954  2A04               	incf	delay_us@i,f,c
+   595  007956                     l1051:
+   596  007956  5004               	movf	delay_us@i,w,c
+   597  007958  6002               	cpfslt	delay_us@t,c
+   598  00795A  D7F6               	goto	l1047
+   599                           
+   600                           ;delay.c: 34: return;
+   601  00795C  0012               	return	
+   602  00795E                     __end_of_delay_us:
+   603                           	opt stack 0
+   604                           tblptru	equ	0xFF8
+   605                           tblptrh	equ	0xFF7
+   606                           tblptrl	equ	0xFF6
+   607                           tablat	equ	0xFF5
+   608                           postinc0	equ	0xFEE
+   609                           postdec1	equ	0xFE5
+   610                           fsr1l	equ	0xFE1
+   611                           
+   612 ;; *************** function _GetKey *****************
+   613 ;; Defined at:
+   614 ;;		line 109 in file "KeyFn.c"
+   615 ;; Parameters:    Size  Location     Type
+   616 ;;		None
+   617 ;; Auto vars:     Size  Location     Type
+   618 ;;  row             1   24[COMRAM] unsigned char 
+   619 ;; Return value:  Size  Location     Type
+   620 ;;		None               void
+   621 ;; Registers used:
+   622 ;;		wreg, status,2, status,0, cstack
+   623 ;; Tracked objects:
+   624 ;;		On entry : 0/0
+   625 ;;		On exit  : 0/0
+   626 ;;		Unchanged: 0/0
+   627 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   628 ;;      Params:         0       0       0       0       0       0       0       0       0
+   629 ;;      Locals:        17       0       0       0       0       0       0       0       0
+   630 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   631 ;;      Totals:        18       0       0       0       0       0       0       0       0
+   632 ;;Total ram usage:       18 bytes
+   633 ;; Hardware stack levels used:    1
+   634 ;; Hardware stack levels required when called:    3
+   635 ;; This function calls:
+   636 ;;		_Print_key
+   637 ;; This function is called by:
+   638 ;;		_main
+   639 ;; This function uses a non-reentrant model
+   640 ;;
+   641                           
+   642                           	psect	text4
+   643  007A42                     __ptext4:
+   644                           	opt stack 0
+   645  007A42                     _GetKey:
+   646                           	opt stack 26
+   647                           
+   648                           ;KeyFn.c: 110: unsigned char row;
+   649                           ;KeyFn.c: 111: TRISD = 0xF0;
+   650                           
+   651                           ;incstack = 0
+   652                           ;incstack = 0
+   653  007A42  0EF0               	movlw	240
+   654  007A44  6E95               	movwf	3989,c	;volatile
+   655  007A46                     l21:
+   656                           
+   657                           ;KeyFn.c: 114: {
+   658                           ;KeyFn.c: 115: PORTD = 0X0F;
+   659  007A46  0E0F               	movlw	15
+   660  007A48  6E83               	movwf	3971,c	;volatile
+   661                           
+   662                           ;KeyFn.c: 116: row = PORTD;
+   663  007A4A  CF83 F019          	movff	3971,GetKey@row	;volatile
+   664                           
+   665                           ;KeyFn.c: 117: row &= 0xF0;
+   666  007A4E  0EF0               	movlw	240
+   667  007A50  1619               	andwf	GetKey@row,f,c
+   668                           
+   669                           ;KeyFn.c: 118: }while(row!=0x0F);
+   670  007A52  5019               	movf	GetKey@row,w,c
+   671  007A54  0A0F               	xorlw	15
+   672  007A56  A4D8               	btfss	status,2,c
+   673  007A58  D7F6               	goto	l21
+   674  007A5A                     l1081:
+   675                           
+   676                           ;KeyFn.c: 122: {
+   677                           ;KeyFn.c: 123: PORTD = 0X0F;
+   678  007A5A  0E0F               	movlw	15
+   679  007A5C  6E83               	movwf	3971,c	;volatile
+   680                           
+   681                           ;KeyFn.c: 124: row = PORTD;
+   682  007A5E  CF83 F019          	movff	3971,GetKey@row	;volatile
+   683                           
+   684                           ;KeyFn.c: 125: row &= 0xF0;
+   685  007A62  0EF0               	movlw	240
+   686  007A64  1619               	andwf	GetKey@row,f,c
+   687                           
+   688                           ;KeyFn.c: 126: }while(row==0x0F);
+   689  007A66  5019               	movf	GetKey@row,w,c
+   690  007A68  0A0F               	xorlw	15
+   691  007A6A  B4D8               	btfsc	status,2,c
+   692  007A6C  D7F6               	goto	l1081
+   693  007A6E                     l1089:
+   694                           
+   695                           ;KeyFn.c: 130: {
+   696                           ;KeyFn.c: 131: PORTD = 0X08;
+   697  007A6E  0E08               	movlw	8
+   698  007A70  6E83               	movwf	3971,c	;volatile
+   699                           
+   700                           ;KeyFn.c: 133: if(Print_key((PORTDbits.RD7)&&(PORTDbits.RD3),arr[0][0]))
+   701  007A72  6E08               	movwf	??_GetKey& (0+255),c
+   702  007A74  0E00               	movlw	0
+   703  007A76  6E09               	movwf	_GetKey$95,c
+   704  007A78  5008               	movf	??_GetKey& (0+255),w,c
+   705  007A7A  BE83               	btfsc	3971,7,c	;volatile
+   706  007A7C  A683               	btfss	3971,3,c	;volatile
+   707  007A7E  D004               	goto	l1099
+   708  007A80  6E08               	movwf	??_GetKey& (0+255),c
+   709  007A82  0E01               	movlw	1
+   710  007A84  6E09               	movwf	_GetKey$95,c
+   711  007A86  5008               	movf	??_GetKey& (0+255),w,c
+   712  007A88                     l1099:
+   713  007A88  C009  F005         	movff	_GetKey$95,?_Print_key
+   714  007A8C  C01B  F006         	movff	_arr,?_Print_key+1
+   715  007A90  ECD6  F03C         	call	_Print_key	;wreg free
+   716  007A94  0900               	iorlw	0
+   717  007A96  A4D8               	btfss	status,2,c
+   718  007A98  D132               	goto	l88
+   719                           
+   720                           ;KeyFn.c: 135: else if(Print_key((PORTDbits.RD6)&&(PORTDbits.RD3), arr[0][1]))
+   721                           
+   722                           ;KeyFn.c: 134: break;
+   723  007A9A  6E08               	movwf	??_GetKey& (0+255),c
+   724  007A9C  0E00               	movlw	0
+   725  007A9E  6E0A               	movwf	_GetKey$96,c
+   726  007AA0  5008               	movf	??_GetKey& (0+255),w,c
+   727  007AA2  BC83               	btfsc	3971,6,c	;volatile
+   728  007AA4  A683               	btfss	3971,3,c	;volatile
+   729  007AA6  D004               	goto	l1113
+   730  007AA8  6E08               	movwf	??_GetKey& (0+255),c
+   731  007AAA  0E01               	movlw	1
+   732  007AAC  6E0A               	movwf	_GetKey$96,c
+   733  007AAE  5008               	movf	??_GetKey& (0+255),w,c
+   734  007AB0                     l1113:
+   735  007AB0  C00A  F005         	movff	_GetKey$96,?_Print_key
+   736  007AB4  C01C  F006         	movff	_arr+1,?_Print_key+1
+   737  007AB8  ECD6  F03C         	call	_Print_key	;wreg free
+   738  007ABC  0900               	iorlw	0
+   739  007ABE  A4D8               	btfss	status,2,c
+   740  007AC0  D11E               	goto	l88
+   741                           
+   742                           ;KeyFn.c: 137: else if(Print_key((PORTDbits.RD5)&&(PORTDbits.RD3), arr[0][2]))
+   743                           
+   744                           ;KeyFn.c: 136: break;
+   745  007AC2  6E08               	movwf	??_GetKey& (0+255),c
+   746  007AC4  0E00               	movlw	0
+   747  007AC6  6E0B               	movwf	_GetKey$97,c
+   748  007AC8  5008               	movf	??_GetKey& (0+255),w,c
+   749  007ACA  BA83               	btfsc	3971,5,c	;volatile
+   750  007ACC  A683               	btfss	3971,3,c	;volatile
+   751  007ACE  D004               	goto	l1127
+   752  007AD0  6E08               	movwf	??_GetKey& (0+255),c
+   753  007AD2  0E01               	movlw	1
+   754  007AD4  6E0B               	movwf	_GetKey$97,c
+   755  007AD6  5008               	movf	??_GetKey& (0+255),w,c
+   756  007AD8                     l1127:
+   757  007AD8  C00B  F005         	movff	_GetKey$97,?_Print_key
+   758  007ADC  C01D  F006         	movff	_arr+2,?_Print_key+1
+   759  007AE0  ECD6  F03C         	call	_Print_key	;wreg free
+   760  007AE4  0900               	iorlw	0
+   761  007AE6  A4D8               	btfss	status,2,c
+   762  007AE8  D10A               	goto	l88
+   763                           
+   764                           ;KeyFn.c: 139: else if(Print_key((PORTDbits.RD4)&&(PORTDbits.RD3), arr[0][3]))
+   765                           
+   766                           ;KeyFn.c: 138: break;
+   767  007AEA  6E08               	movwf	??_GetKey& (0+255),c
+   768  007AEC  0E00               	movlw	0
+   769  007AEE  6E0C               	movwf	_GetKey$98,c
+   770  007AF0  5008               	movf	??_GetKey& (0+255),w,c
+   771  007AF2  B883               	btfsc	3971,4,c	;volatile
+   772  007AF4  A683               	btfss	3971,3,c	;volatile
+   773  007AF6  D004               	goto	l1141
+   774  007AF8  6E08               	movwf	??_GetKey& (0+255),c
+   775  007AFA  0E01               	movlw	1
+   776  007AFC  6E0C               	movwf	_GetKey$98,c
+   777  007AFE  5008               	movf	??_GetKey& (0+255),w,c
+   778  007B00                     l1141:
+   779  007B00  C00C  F005         	movff	_GetKey$98,?_Print_key
+   780  007B04  C01E  F006         	movff	_arr+3,?_Print_key+1
+   781  007B08  ECD6  F03C         	call	_Print_key	;wreg free
+   782  007B0C  0900               	iorlw	0
+   783  007B0E  A4D8               	btfss	status,2,c
+   784  007B10  D0F6               	goto	l88
+   785                           
+   786                           ;KeyFn.c: 142: PORTD = 0X04;
+   787                           
+   788                           ;KeyFn.c: 140: break;
+   789  007B12  0E04               	movlw	4
+   790  007B14  6E83               	movwf	3971,c	;volatile
+   791                           
+   792                           ;KeyFn.c: 144: if(Print_key((PORTDbits.RD7)&&(PORTDbits.RD2), arr[1][0]))
+   793  007B16  6E08               	movwf	??_GetKey& (0+255),c
+   794  007B18  0E00               	movlw	0
+   795  007B1A  6E0D               	movwf	_GetKey$99,c
+   796  007B1C  5008               	movf	??_GetKey& (0+255),w,c
+   797  007B1E  BE83               	btfsc	3971,7,c	;volatile
+   798  007B20  A483               	btfss	3971,2,c	;volatile
+   799  007B22  D004               	goto	l1155
+   800  007B24  6E08               	movwf	??_GetKey& (0+255),c
+   801  007B26  0E01               	movlw	1
+   802  007B28  6E0D               	movwf	_GetKey$99,c
+   803  007B2A  5008               	movf	??_GetKey& (0+255),w,c
+   804  007B2C                     l1155:
+   805  007B2C  C00D  F005         	movff	_GetKey$99,?_Print_key
+   806  007B30  C01F  F006         	movff	_arr+4,?_Print_key+1
+   807  007B34  ECD6  F03C         	call	_Print_key	;wreg free
+   808  007B38  0900               	iorlw	0
+   809  007B3A  A4D8               	btfss	status,2,c
+   810  007B3C  D0E0               	goto	l88
+   811                           
+   812                           ;KeyFn.c: 146: else if(Print_key((PORTDbits.RD6)&&(PORTDbits.RD2), arr[1][1]))
+   813                           
+   814                           ;KeyFn.c: 145: break;
+   815  007B3E  6E08               	movwf	??_GetKey& (0+255),c
+   816  007B40  0E00               	movlw	0
+   817  007B42  6E0E               	movwf	_GetKey$100,c
+   818  007B44  5008               	movf	??_GetKey& (0+255),w,c
+   819  007B46  BC83               	btfsc	3971,6,c	;volatile
+   820  007B48  A483               	btfss	3971,2,c	;volatile
+   821  007B4A  D004               	goto	l1169
+   822  007B4C  6E08               	movwf	??_GetKey& (0+255),c
+   823  007B4E  0E01               	movlw	1
+   824  007B50  6E0E               	movwf	_GetKey$100,c
+   825  007B52  5008               	movf	??_GetKey& (0+255),w,c
+   826  007B54                     l1169:
+   827  007B54  C00E  F005         	movff	_GetKey$100,?_Print_key
+   828  007B58  C020  F006         	movff	_arr+5,?_Print_key+1
+   829  007B5C  ECD6  F03C         	call	_Print_key	;wreg free
+   830  007B60  0900               	iorlw	0
+   831  007B62  A4D8               	btfss	status,2,c
+   832  007B64  D0CC               	goto	l88
+   833                           
+   834                           ;KeyFn.c: 148: else if(Print_key((PORTDbits.RD5)&&(PORTDbits.RD2), arr[1][2]))
+   835                           
+   836                           ;KeyFn.c: 147: break;
+   837  007B66  6E08               	movwf	??_GetKey& (0+255),c
+   838  007B68  0E00               	movlw	0
+   839  007B6A  6E0F               	movwf	_GetKey$101,c
+   840  007B6C  5008               	movf	??_GetKey& (0+255),w,c
+   841  007B6E  BA83               	btfsc	3971,5,c	;volatile
+   842  007B70  A483               	btfss	3971,2,c	;volatile
+   843  007B72  D004               	goto	l1183
+   844  007B74  6E08               	movwf	??_GetKey& (0+255),c
+   845  007B76  0E01               	movlw	1
+   846  007B78  6E0F               	movwf	_GetKey$101,c
+   847  007B7A  5008               	movf	??_GetKey& (0+255),w,c
+   848  007B7C                     l1183:
+   849  007B7C  C00F  F005         	movff	_GetKey$101,?_Print_key
+   850  007B80  C021  F006         	movff	_arr+6,?_Print_key+1
+   851  007B84  ECD6  F03C         	call	_Print_key	;wreg free
+   852  007B88  0900               	iorlw	0
+   853  007B8A  A4D8               	btfss	status,2,c
+   854  007B8C  D0B8               	goto	l88
+   855                           
+   856                           ;KeyFn.c: 150: else if(Print_key((PORTDbits.RD4)&&(PORTDbits.RD2), arr[1][3]))
+   857                           
+   858                           ;KeyFn.c: 149: break;
+   859  007B8E  6E08               	movwf	??_GetKey& (0+255),c
+   860  007B90  0E00               	movlw	0
+   861  007B92  6E10               	movwf	_GetKey$102,c
+   862  007B94  5008               	movf	??_GetKey& (0+255),w,c
+   863  007B96  B883               	btfsc	3971,4,c	;volatile
+   864  007B98  A483               	btfss	3971,2,c	;volatile
+   865  007B9A  D004               	goto	l1197
+   866  007B9C  6E08               	movwf	??_GetKey& (0+255),c
+   867  007B9E  0E01               	movlw	1
+   868  007BA0  6E10               	movwf	_GetKey$102,c
+   869  007BA2  5008               	movf	??_GetKey& (0+255),w,c
+   870  007BA4                     l1197:
+   871  007BA4  C010  F005         	movff	_GetKey$102,?_Print_key
+   872  007BA8  C022  F006         	movff	_arr+7,?_Print_key+1
+   873  007BAC  ECD6  F03C         	call	_Print_key	;wreg free
+   874  007BB0  0900               	iorlw	0
+   875  007BB2  A4D8               	btfss	status,2,c
+   876  007BB4  D0A4               	goto	l88
+   877                           
+   878                           ;KeyFn.c: 153: PORTD = 0X02;
+   879                           
+   880                           ;KeyFn.c: 151: break;
+   881  007BB6  0E02               	movlw	2
+   882  007BB8  6E83               	movwf	3971,c	;volatile
+   883                           
+   884                           ;KeyFn.c: 155: if(Print_key((PORTDbits.RD7)&&(PORTDbits.RD1), arr[2][0]))
+   885  007BBA  6E08               	movwf	??_GetKey& (0+255),c
+   886  007BBC  0E00               	movlw	0
+   887  007BBE  6E11               	movwf	_GetKey$103,c
+   888  007BC0  5008               	movf	??_GetKey& (0+255),w,c
+   889  007BC2  BE83               	btfsc	3971,7,c	;volatile
+   890  007BC4  A283               	btfss	3971,1,c	;volatile
+   891  007BC6  D004               	goto	l1211
+   892  007BC8  6E08               	movwf	??_GetKey& (0+255),c
+   893  007BCA  0E01               	movlw	1
+   894  007BCC  6E11               	movwf	_GetKey$103,c
+   895  007BCE  5008               	movf	??_GetKey& (0+255),w,c
+   896  007BD0                     l1211:
+   897  007BD0  C011  F005         	movff	_GetKey$103,?_Print_key
+   898  007BD4  C023  F006         	movff	_arr+8,?_Print_key+1
+   899  007BD8  ECD6  F03C         	call	_Print_key	;wreg free
+   900  007BDC  0900               	iorlw	0
+   901  007BDE  A4D8               	btfss	status,2,c
+   902  007BE0  D08E               	goto	l88
+   903                           
+   904                           ;KeyFn.c: 157: else if(Print_key((PORTDbits.RD6)&&(PORTDbits.RD1), arr[2][1]))
+   905                           
+   906                           ;KeyFn.c: 156: break;
+   907  007BE2  6E08               	movwf	??_GetKey& (0+255),c
+   908  007BE4  0E00               	movlw	0
+   909  007BE6  6E12               	movwf	_GetKey$104,c
+   910  007BE8  5008               	movf	??_GetKey& (0+255),w,c
+   911  007BEA  BC83               	btfsc	3971,6,c	;volatile
+   912  007BEC  A283               	btfss	3971,1,c	;volatile
+   913  007BEE  D004               	goto	l1225
+   914  007BF0  6E08               	movwf	??_GetKey& (0+255),c
+   915  007BF2  0E01               	movlw	1
+   916  007BF4  6E12               	movwf	_GetKey$104,c
+   917  007BF6  5008               	movf	??_GetKey& (0+255),w,c
+   918  007BF8                     l1225:
+   919  007BF8  C012  F005         	movff	_GetKey$104,?_Print_key
+   920  007BFC  C024  F006         	movff	_arr+9,?_Print_key+1
+   921  007C00  ECD6  F03C         	call	_Print_key	;wreg free
+   922  007C04  0900               	iorlw	0
+   923  007C06  A4D8               	btfss	status,2,c
+   924  007C08  D07A               	goto	l88
+   925                           
+   926                           ;KeyFn.c: 159: else if(Print_key((PORTDbits.RD5)&&(PORTDbits.RD1), arr[2][2]))
+   927                           
+   928                           ;KeyFn.c: 158: break;
+   929  007C0A  6E08               	movwf	??_GetKey& (0+255),c
+   930  007C0C  0E00               	movlw	0
+   931  007C0E  6E13               	movwf	_GetKey$105,c
+   932  007C10  5008               	movf	??_GetKey& (0+255),w,c
+   933  007C12  BA83               	btfsc	3971,5,c	;volatile
+   934  007C14  A283               	btfss	3971,1,c	;volatile
+   935  007C16  D004               	goto	l1239
+   936  007C18  6E08               	movwf	??_GetKey& (0+255),c
+   937  007C1A  0E01               	movlw	1
+   938  007C1C  6E13               	movwf	_GetKey$105,c
+   939  007C1E  5008               	movf	??_GetKey& (0+255),w,c
+   940  007C20                     l1239:
+   941  007C20  C013  F005         	movff	_GetKey$105,?_Print_key
+   942  007C24  C025  F006         	movff	_arr+10,?_Print_key+1
+   943  007C28  ECD6  F03C         	call	_Print_key	;wreg free
+   944  007C2C  0900               	iorlw	0
+   945  007C2E  A4D8               	btfss	status,2,c
+   946  007C30  D066               	goto	l88
+   947                           
+   948                           ;KeyFn.c: 161: else if(Print_key((PORTDbits.RD4)&&(PORTDbits.RD1), arr[2][3]))
+   949                           
+   950                           ;KeyFn.c: 160: break;
+   951  007C32  6E08               	movwf	??_GetKey& (0+255),c
+   952  007C34  0E00               	movlw	0
+   953  007C36  6E14               	movwf	_GetKey$106,c
+   954  007C38  5008               	movf	??_GetKey& (0+255),w,c
+   955  007C3A  B883               	btfsc	3971,4,c	;volatile
+   956  007C3C  A283               	btfss	3971,1,c	;volatile
+   957  007C3E  D004               	goto	l1253
+   958  007C40  6E08               	movwf	??_GetKey& (0+255),c
+   959  007C42  0E01               	movlw	1
+   960  007C44  6E14               	movwf	_GetKey$106,c
+   961  007C46  5008               	movf	??_GetKey& (0+255),w,c
+   962  007C48                     l1253:
+   963  007C48  C014  F005         	movff	_GetKey$106,?_Print_key
+   964  007C4C  C026  F006         	movff	_arr+11,?_Print_key+1
+   965  007C50  ECD6  F03C         	call	_Print_key	;wreg free
+   966  007C54  0900               	iorlw	0
+   967  007C56  A4D8               	btfss	status,2,c
+   968  007C58  D052               	goto	l88
+   969                           
+   970                           ;KeyFn.c: 164: PORTD = 0X01;
+   971                           
+   972                           ;KeyFn.c: 162: break;
+   973  007C5A  0E01               	movlw	1
+   974  007C5C  6E83               	movwf	3971,c	;volatile
+   975                           
+   976                           ;KeyFn.c: 166: if(Print_key((PORTDbits.RD7)&&(PORTDbits.RD0), arr[3][0]))
+   977  007C5E  6E08               	movwf	??_GetKey& (0+255),c
+   978  007C60  0E00               	movlw	0
+   979  007C62  6E15               	movwf	_GetKey$107,c
+   980  007C64  5008               	movf	??_GetKey& (0+255),w,c
+   981  007C66  BE83               	btfsc	3971,7,c	;volatile
+   982  007C68  A083               	btfss	3971,0,c	;volatile
+   983  007C6A  D004               	goto	l1267
+   984  007C6C  6E08               	movwf	??_GetKey& (0+255),c
+   985  007C6E  0E01               	movlw	1
+   986  007C70  6E15               	movwf	_GetKey$107,c
+   987  007C72  5008               	movf	??_GetKey& (0+255),w,c
+   988  007C74                     l1267:
+   989  007C74  C015  F005         	movff	_GetKey$107,?_Print_key
+   990  007C78  C027  F006         	movff	_arr+12,?_Print_key+1
+   991  007C7C  ECD6  F03C         	call	_Print_key	;wreg free
+   992  007C80  0900               	iorlw	0
+   993  007C82  A4D8               	btfss	status,2,c
+   994  007C84  D03C               	goto	l88
+   995                           
+   996                           ;KeyFn.c: 168: else if(Print_key((PORTDbits.RD6)&&(PORTDbits.RD0), arr[3][1]))
+   997                           
+   998                           ;KeyFn.c: 167: break;
+   999  007C86  6E08               	movwf	??_GetKey& (0+255),c
+  1000  007C88  0E00               	movlw	0
+  1001  007C8A  6E16               	movwf	_GetKey$108,c
+  1002  007C8C  5008               	movf	??_GetKey& (0+255),w,c
+  1003  007C8E  BC83               	btfsc	3971,6,c	;volatile
+  1004  007C90  A083               	btfss	3971,0,c	;volatile
+  1005  007C92  D004               	goto	l1281
+  1006  007C94  6E08               	movwf	??_GetKey& (0+255),c
+  1007  007C96  0E01               	movlw	1
+  1008  007C98  6E16               	movwf	_GetKey$108,c
+  1009  007C9A  5008               	movf	??_GetKey& (0+255),w,c
+  1010  007C9C                     l1281:
+  1011  007C9C  C016  F005         	movff	_GetKey$108,?_Print_key
+  1012  007CA0  C028  F006         	movff	_arr+13,?_Print_key+1
+  1013  007CA4  ECD6  F03C         	call	_Print_key	;wreg free
+  1014  007CA8  0900               	iorlw	0
+  1015  007CAA  A4D8               	btfss	status,2,c
+  1016  007CAC  D028               	goto	l88
+  1017                           
+  1018                           ;KeyFn.c: 170: else if(Print_key((PORTDbits.RD5)&&(PORTDbits.RD0), arr[3][2]))
+  1019                           
+  1020                           ;KeyFn.c: 169: break;
+  1021  007CAE  6E08               	movwf	??_GetKey& (0+255),c
+  1022  007CB0  0E00               	movlw	0
+  1023  007CB2  6E17               	movwf	_GetKey$109,c
+  1024  007CB4  5008               	movf	??_GetKey& (0+255),w,c
+  1025  007CB6  BA83               	btfsc	3971,5,c	;volatile
+  1026  007CB8  A083               	btfss	3971,0,c	;volatile
+  1027  007CBA  D004               	goto	l1295
+  1028  007CBC  6E08               	movwf	??_GetKey& (0+255),c
+  1029  007CBE  0E01               	movlw	1
+  1030  007CC0  6E17               	movwf	_GetKey$109,c
+  1031  007CC2  5008               	movf	??_GetKey& (0+255),w,c
+  1032  007CC4                     l1295:
+  1033  007CC4  C017  F005         	movff	_GetKey$109,?_Print_key
+  1034  007CC8  C029  F006         	movff	_arr+14,?_Print_key+1
+  1035  007CCC  ECD6  F03C         	call	_Print_key	;wreg free
+  1036  007CD0  0900               	iorlw	0
+  1037  007CD2  A4D8               	btfss	status,2,c
+  1038  007CD4  D014               	goto	l88
+  1039                           
+  1040                           ;KeyFn.c: 172: else if(Print_key((PORTDbits.RD4)&&(PORTDbits.RD0), arr[3][3]))
+  1041                           
+  1042                           ;KeyFn.c: 171: break;
+  1043  007CD6  6E08               	movwf	??_GetKey& (0+255),c
+  1044  007CD8  0E00               	movlw	0
+  1045  007CDA  6E18               	movwf	_GetKey$110,c
+  1046  007CDC  5008               	movf	??_GetKey& (0+255),w,c
+  1047  007CDE  B883               	btfsc	3971,4,c	;volatile
+  1048  007CE0  A083               	btfss	3971,0,c	;volatile
+  1049  007CE2  D004               	goto	l1309
+  1050  007CE4  6E08               	movwf	??_GetKey& (0+255),c
+  1051  007CE6  0E01               	movlw	1
+  1052  007CE8  6E18               	movwf	_GetKey$110,c
+  1053  007CEA  5008               	movf	??_GetKey& (0+255),w,c
+  1054  007CEC                     l1309:
+  1055  007CEC  C018  F005         	movff	_GetKey$110,?_Print_key
+  1056  007CF0  C02A  F006         	movff	_arr+15,?_Print_key+1
+  1057  007CF4  ECD6  F03C         	call	_Print_key	;wreg free
+  1058  007CF8  0900               	iorlw	0
+  1059  007CFA  B4D8               	btfsc	status,2,c
+  1060  007CFC  D6B8               	goto	l1089
+  1061  007CFE                     l88:
+  1062  007CFE  0012               	return	
+  1063  007D00                     __end_of_GetKey:
+  1064                           	opt stack 0
+  1065                           tblptru	equ	0xFF8
+  1066                           tblptrh	equ	0xFF7
+  1067                           tblptrl	equ	0xFF6
+  1068                           tablat	equ	0xFF5
+  1069                           postinc0	equ	0xFEE
+  1070                           postdec1	equ	0xFE5
+  1071                           fsr1l	equ	0xFE1
+  1072                           status	equ	0xFD8
+  1073                           
+  1074 ;; *************** function _Print_key *****************
+  1075 ;; Defined at:
+  1076 ;;		line 90 in file "KeyFn.c"
+  1077 ;; Parameters:    Size  Location     Type
+  1078 ;;  element         1    4[COMRAM] unsigned char 
+  1079 ;;  a               1    5[COMRAM] unsigned char 
+  1080 ;; Auto vars:     Size  Location     Type
+  1081 ;;		None
+  1082 ;; Return value:  Size  Location     Type
+  1083 ;;                  1    wreg      unsigned char 
+  1084 ;; Registers used:
+  1085 ;;		wreg, status,2, status,0, cstack
+  1086 ;; Tracked objects:
+  1087 ;;		On entry : 0/0
+  1088 ;;		On exit  : 0/0
+  1089 ;;		Unchanged: 0/0
+  1090 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1091 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1092 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1093 ;;      Temps:          1       0       0       0       0       0       0       0       0
+  1094 ;;      Totals:         3       0       0       0       0       0       0       0       0
+  1095 ;;Total ram usage:        3 bytes
+  1096 ;; Hardware stack levels used:    1
+  1097 ;; Hardware stack levels required when called:    2
+  1098 ;; This function calls:
+  1099 ;;		_delay_ms
+  1100 ;;		_Write
+  1101 ;; This function is called by:
+  1102 ;;		_GetKey
+  1103 ;; This function uses a non-reentrant model
+  1104 ;;
+  1105                           
+  1106                           	psect	text5
+  1107  0079AC                     __ptext5:
+  1108                           	opt stack 0
+  1109  0079AC                     _Print_key:
+  1110                           	opt stack 26
+  1111                           
+  1112                           ;KeyFn.c: 91: if(element)
+  1113                           
+  1114                           ;incstack = 0
+  1115                           ;incstack = 0
+  1116  0079AC  5005               	movf	Print_key@element,w,c
+  1117  0079AE  B4D8               	btfsc	status,2,c
+  1118  0079B0  D018               	goto	l1069
+  1119                           
+  1120                           ;KeyFn.c: 92: {
+  1121                           ;KeyFn.c: 93: delay_ms(10);
+  1122  0079B2  6E07               	movwf	??_Print_key& (0+255),c
+  1123  0079B4  0E0A               	movlw	10
+  1124  0079B6  6E02               	movwf	?_delay_ms,c
+  1125  0079B8  5007               	movf	??_Print_key& (0+255),w,c
+  1126  0079BA  EC8F  F03C         	call	_delay_ms	;wreg free
+  1127                           
+  1128                           ;KeyFn.c: 94: if (element)
+  1129  0079BE  5005               	movf	Print_key@element,w,c
+  1130  0079C0  B4D8               	btfsc	status,2,c
+  1131  0079C2  D00F               	goto	l1069
+  1132                           
+  1133                           ;KeyFn.c: 95: {
+  1134                           ;KeyFn.c: 96: delay_ms(10);
+  1135  0079C4  6E07               	movwf	??_Print_key& (0+255),c
+  1136  0079C6  0E0A               	movlw	10
+  1137  0079C8  6E02               	movwf	?_delay_ms,c
+  1138  0079CA  5007               	movf	??_Print_key& (0+255),w,c
+  1139  0079CC  EC8F  F03C         	call	_delay_ms	;wreg free
+  1140                           
+  1141                           ;KeyFn.c: 97: if (element)
+  1142  0079D0  5005               	movf	Print_key@element,w,c
+  1143  0079D2  B4D8               	btfsc	status,2,c
+  1144  0079D4  D006               	goto	l1069
+  1145                           
+  1146                           ;KeyFn.c: 98: {
+  1147                           ;KeyFn.c: 99: Write(a);
+  1148  0079D6  C006  F002         	movff	Print_key@a,?_Write
+  1149  0079DA  EC6F  F03C         	call	_Write	;wreg free
+  1150                           
+  1151                           ;KeyFn.c: 100: return(1);
+  1152  0079DE  0E01               	movlw	1
+  1153  0079E0  D001               	goto	l18
+  1154  0079E2                     l1069:
+  1155                           
+  1156                           ;KeyFn.c: 101: }
+  1157                           ;KeyFn.c: 102: }
+  1158                           ;KeyFn.c: 103: }
+  1159                           ;KeyFn.c: 104: return(0);
+  1160  0079E2  0E00               	movlw	0
+  1161  0079E4                     l18:
+  1162  0079E4  0012               	return	
+  1163  0079E6                     __end_of_Print_key:
+  1164                           	opt stack 0
+  1165                           tblptru	equ	0xFF8
+  1166                           tblptrh	equ	0xFF7
+  1167                           tblptrl	equ	0xFF6
+  1168                           tablat	equ	0xFF5
+  1169                           postinc0	equ	0xFEE
+  1170                           postdec1	equ	0xFE5
+  1171                           fsr1l	equ	0xFE1
+  1172                           status	equ	0xFD8
+  1173                           
+  1174 ;; *************** function _Write *****************
+  1175 ;; Defined at:
+  1176 ;;		line 43 in file "uart.c"
+  1177 ;; Parameters:    Size  Location     Type
+  1178 ;;  data            1    1[COMRAM] unsigned char 
+  1179 ;; Auto vars:     Size  Location     Type
+  1180 ;;		None
+  1181 ;; Return value:  Size  Location     Type
+  1182 ;;		None               void
+  1183 ;; Registers used:
+  1184 ;;		cstack
+  1185 ;; Tracked objects:
+  1186 ;;		On entry : 0/0
+  1187 ;;		On exit  : 0/0
+  1188 ;;		Unchanged: 0/0
+  1189 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1190 ;;      Params:         1       0       0       0       0       0       0       0       0
+  1191 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1192 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1193 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1194 ;;Total ram usage:        1 bytes
+  1195 ;; Hardware stack levels used:    1
+  1196 ;; Hardware stack levels required when called:    1
+  1197 ;; This function calls:
+  1198 ;;		_WriteUSART
+  1199 ;; This function is called by:
+  1200 ;;		_Print_key
+  1201 ;;		_Read_string
+  1202 ;; This function uses a non-reentrant model
+  1203 ;;
+  1204                           
+  1205                           	psect	text6
+  1206  0078DE                     __ptext6:
+  1207                           	opt stack 0
+  1208  0078DE                     _Write:
+  1209                           	opt stack 26
+  1210                           
+  1211                           ;uart.c: 44: WriteUSART(data);
+  1212                           
+  1213                           ;incstack = 0
+  1214                           ;incstack = 0
+  1215  0078DE  C002  F001         	movff	Write@data,?_WriteUSART
+  1216  0078E2  EC76  F03C         	call	_WriteUSART	;wreg free
+  1217  0078E6                     l184:
+  1218  0078E6  B2AC               	btfsc	4012,1,c	;volatile
+  1219  0078E8  0012               	return	
+  1220  0078EA  D7FD               	goto	l184
+  1221  0078EC                     __end_of_Write:
+  1222                           	opt stack 0
+  1223                           tblptru	equ	0xFF8
+  1224                           tblptrh	equ	0xFF7
+  1225                           tblptrl	equ	0xFF6
+  1226                           tablat	equ	0xFF5
+  1227                           postinc0	equ	0xFEE
+  1228                           postdec1	equ	0xFE5
+  1229                           fsr1l	equ	0xFE1
+  1230                           status	equ	0xFD8
+  1231                           
+  1232 ;; *************** function _WriteUSART *****************
+  1233 ;; Defined at:
+  1234 ;;		line 14 in file "C:\Program Files (x86)\Microchip\xc8\v1.21\sources\pic18\plib\USART\uwrite.c"
+  1235 ;; Parameters:    Size  Location     Type
+  1236 ;;  data            1    0[COMRAM] unsigned char 
+  1237 ;; Auto vars:     Size  Location     Type
+  1238 ;;		None
+  1239 ;; Return value:  Size  Location     Type
+  1240 ;;		None               void
+  1241 ;; Registers used:
+  1242 ;;		None
+  1243 ;; Tracked objects:
+  1244 ;;		On entry : 0/0
+  1245 ;;		On exit  : 0/0
+  1246 ;;		Unchanged: 0/0
+  1247 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1248 ;;      Params:         1       0       0       0       0       0       0       0       0
+  1249 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1250 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1251 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1252 ;;Total ram usage:        1 bytes
+  1253 ;; Hardware stack levels used:    1
+  1254 ;; This function calls:
+  1255 ;;		Nothing
+  1256 ;; This function is called by:
+  1257 ;;		_Write
+  1258 ;;		_Read_string
+  1259 ;;		_Read_str_
+  1260 ;; This function uses a non-reentrant model
+  1261 ;;
+  1262                           
+  1263                           	psect	text7
+  1264  0078EC                     __ptext7:
+  1265                           	opt stack 0
+  1266  0078EC                     _WriteUSART:
+  1267                           	opt stack 26
+  1268                           
+  1269                           ;incstack = 0
+  1270                           ;incstack = 0
+  1271  0078EC  ACAC               	btfss	4012,6,c	;volatile
+  1272  0078EE  D003               	goto	l294
+  1273  0078F0  90AC               	bcf	4012,0,c	;volatile
+  1274  0078F2  B22C               	btfsc	_USART_Status,1,c
+  1275  0078F4  80AC               	bsf	4012,0,c	;volatile
+  1276  0078F6                     l294:
+  1277  0078F6  C001  FFAD         	movff	WriteUSART@data,4013	;volatile
+  1278  0078FA  0012               	return	
+  1279  0078FC                     __end_of_WriteUSART:
+  1280                           	opt stack 0
+  1281                           tblptru	equ	0xFF8
+  1282                           tblptrh	equ	0xFF7
+  1283                           tblptrl	equ	0xFF6
+  1284                           tablat	equ	0xFF5
+  1285                           postinc0	equ	0xFEE
+  1286                           postdec1	equ	0xFE5
+  1287                           fsr1l	equ	0xFE1
+  1288                           status	equ	0xFD8
+  1289                           
+  1290 ;; *************** function _delay_ms *****************
+  1291 ;; Defined at:
+  1292 ;;		line 18 in file "delay.c"
+  1293 ;; Parameters:    Size  Location     Type
+  1294 ;;  t               1    1[COMRAM] unsigned char 
+  1295 ;; Auto vars:     Size  Location     Type
+  1296 ;;  i               1    3[COMRAM] unsigned char 
+  1297 ;; Return value:  Size  Location     Type
+  1298 ;;		None               void
+  1299 ;; Registers used:
+  1300 ;;		wreg, status,2, status,0, cstack
+  1301 ;; Tracked objects:
+  1302 ;;		On entry : 0/0
+  1303 ;;		On exit  : 0/0
+  1304 ;;		Unchanged: 0/0
+  1305 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1306 ;;      Params:         1       0       0       0       0       0       0       0       0
+  1307 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1308 ;;      Temps:          1       0       0       0       0       0       0       0       0
+  1309 ;;      Totals:         3       0       0       0       0       0       0       0       0
+  1310 ;;Total ram usage:        3 bytes
+  1311 ;; Hardware stack levels used:    1
+  1312 ;; Hardware stack levels required when called:    1
+  1313 ;; This function calls:
+  1314 ;;		_Delay1KTCYx
+  1315 ;; This function is called by:
+  1316 ;;		_Print_key
+  1317 ;;		_Delay_s
+  1318 ;; This function uses a non-reentrant model
+  1319 ;;
+  1320                           
+  1321                           	psect	text8
+  1322  00791E                     __ptext8:
+  1323                           	opt stack 0
+  1324  00791E                     _delay_ms:
+  1325                           	opt stack 26
+  1326                           
+  1327                           ;delay.c: 19: unsigned char i;
+  1328                           ;delay.c: 20: for (i=0;i<=t;i++)
+  1329                           
+  1330                           ;incstack = 0
+  1331                           ;incstack = 0
+  1332  00791E  6E03               	movwf	??_delay_ms& (0+255),c
+  1333  007920  0E00               	movlw	0
+  1334  007922  6E04               	movwf	delay_ms@i,c
+  1335  007924  5003               	movf	??_delay_ms& (0+255),w,c
+  1336  007926  D007               	goto	l1043
+  1337  007928                     l1039:
+  1338                           
+  1339                           ;delay.c: 21: Delay1KTCYx(5);
+  1340  007928  6E03               	movwf	??_delay_ms& (0+255),c
+  1341  00792A  0E05               	movlw	5
+  1342  00792C  6E01               	movwf	?_Delay1KTCYx,c
+  1343  00792E  5003               	movf	??_delay_ms& (0+255),w,c
+  1344  007930  EC68  F03C         	call	_Delay1KTCYx	;wreg free
+  1345  007934  2A04               	incf	delay_ms@i,f,c
+  1346  007936                     l1043:
+  1347  007936  5004               	movf	delay_ms@i,w,c
+  1348  007938  6002               	cpfslt	delay_ms@t,c
+  1349  00793A  D7F6               	goto	l1039
+  1350                           
+  1351                           ;delay.c: 25: return;
+  1352  00793C  0012               	return	
+  1353  00793E                     __end_of_delay_ms:
+  1354                           	opt stack 0
+  1355                           tblptru	equ	0xFF8
+  1356                           tblptrh	equ	0xFF7
+  1357                           tblptrl	equ	0xFF6
+  1358                           tablat	equ	0xFF5
+  1359                           postinc0	equ	0xFEE
+  1360                           postdec1	equ	0xFE5
+  1361                           fsr1l	equ	0xFE1
+  1362                           status	equ	0xFD8
+  1363                           
+  1364 ;; *************** function _Delay1KTCYx *****************
+  1365 ;; Defined at:
+  1366 ;;		line 9 in file "C:\Program Files (x86)\Microchip\xc8\v1.21\sources\pic18\d1ktcyx.c"
+  1367 ;; Parameters:    Size  Location     Type
+  1368 ;;  unit            1    0[COMRAM] unsigned char 
+  1369 ;; Auto vars:     Size  Location     Type
+  1370 ;;		None
+  1371 ;; Return value:  Size  Location     Type
+  1372 ;;		None               void
+  1373 ;; Registers used:
+  1374 ;;		wreg
+  1375 ;; Tracked objects:
+  1376 ;;		On entry : 0/0
+  1377 ;;		On exit  : 0/0
+  1378 ;;		Unchanged: 0/0
+  1379 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1380 ;;      Params:         1       0       0       0       0       0       0       0       0
+  1381 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1382 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1383 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1384 ;;Total ram usage:        1 bytes
+  1385 ;; Hardware stack levels used:    1
+  1386 ;; This function calls:
+  1387 ;;		Nothing
+  1388 ;; This function is called by:
+  1389 ;;		_delay_ms
+  1390 ;;		_delay_us
+  1391 ;;		_DelayPORXLCD
+  1392 ;;		_DelayXLCD
+  1393 ;; This function uses a non-reentrant model
+  1394 ;;
+  1395                           
+  1396                           	psect	text9
+  1397  0078D0                     __ptext9:
+  1398                           	opt stack 0
+  1399  0078D0                     _Delay1KTCYx:
+  1400                           	opt stack 28
+  1401  0078D0                     l521:
+  1402  0078D0  0EFA               	movlw	250
+  1403  0078D2                     u877:
+  1404  0078D2  F000               	nop	
+  1405  0078D4  2EE8               	decfsz	wreg,f,c
+  1406  0078D6  D7FD               	goto	u877
+  1407  0078D8  2E01               	decfsz	Delay1KTCYx@unit,f,c
+  1408  0078DA  D7FA               	goto	l521
+  1409  0078DC  0012               	return	
+  1410  0078DE                     __end_of_Delay1KTCYx:
+  1411                           	opt stack 0
+  1412  0000                     tblptru	equ	0xFF8
+  1413                           tblptrh	equ	0xFF7
+  1414                           tblptrl	equ	0xFF6
+  1415                           tablat	equ	0xFF5
+  1416                           postinc0	equ	0xFEE
+  1417                           wreg	equ	0xFE8
+  1418                           postdec1	equ	0xFE5
+  1419                           fsr1l	equ	0xFE1
+  1420                           status	equ	0xFD8
+  1421                           tblptru	equ	0xFF8
+  1422                           tblptrh	equ	0xFF7
+  1423                           tblptrl	equ	0xFF6
+  1424                           tablat	equ	0xFF5
+  1425                           postinc0	equ	0xFEE
+  1426                           wreg	equ	0xFE8
+  1427                           postdec1	equ	0xFE5
+  1428                           fsr1l	equ	0xFE1
+  1429                           status	equ	0xFD8
+  1430                           
+  1431                           	psect	rparam
+  1432  0000                     tblptru	equ	0xFF8
+  1433                           tblptrh	equ	0xFF7
+  1434                           tblptrl	equ	0xFF6
+  1435                           tablat	equ	0xFF5
+  1436                           postinc0	equ	0xFEE
+  1437                           wreg	equ	0xFE8
+  1438                           postdec1	equ	0xFE5
+  1439                           fsr1l	equ	0xFE1
+  1440                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        17
+    BSS         1
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     26      44
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           239      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_GetKey
+    _ConfigUSART->_OpenUSART
+    _delay_us->_Delay1KTCYx
+    _GetKey->_Print_key
+    _Print_key->_delay_ms
+    _Write->_WriteUSART
+    _delay_ms->_Delay1KTCYx
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 1     1      0     630
+                                             25 COMRAM     1     1      0
+                             _GetKey
+                           _delay_us
+                        _ConfigUSART
+ ---------------------------------------------------------------------------------
+ (1) _ConfigUSART                                          2     0      2     180
+                                              3 COMRAM     2     0      2
+                          _OpenUSART
+ ---------------------------------------------------------------------------------
+ (2) _OpenUSART                                            3     0      3     150
+                                              0 COMRAM     3     0      3
+ ---------------------------------------------------------------------------------
+ (1) _delay_us                                             3     2      1      45
+                                              1 COMRAM     3     2      1
+                        _Delay1KTCYx
+ ---------------------------------------------------------------------------------
+ (1) _GetKey                                              18    18      0     405
+                                              7 COMRAM    18    18      0
+                          _Print_key
+ ---------------------------------------------------------------------------------
+ (2) _Print_key                                            3     1      2     135
+                                              4 COMRAM     3     1      2
+                           _delay_ms
+                              _Write
+ ---------------------------------------------------------------------------------
+ (3) _Write                                                1     0      1      30
+                                              1 COMRAM     1     0      1
+                         _WriteUSART
+ ---------------------------------------------------------------------------------
+ (4) _WriteUSART                                           1     0      1      15
+                                              0 COMRAM     1     0      1
+ ---------------------------------------------------------------------------------
+ (3) _delay_ms                                             3     2      1      45
+                                              1 COMRAM     3     2      1
+                        _Delay1KTCYx
+ ---------------------------------------------------------------------------------
+ (2) _Delay1KTCYx                                          1     0      1      15
+                                              0 COMRAM     1     0      1
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 4
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _GetKey
+     _Print_key
+       _delay_ms
+         _Delay1KTCYx
+       _Write
+         _WriteUSART
+   _delay_us
+     _Delay1KTCYx
+   _ConfigUSART
+     _OpenUSART
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM_1           400      0       0      21        0.0%
+BIGRAM             3EE      0       0      22        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK3            EF      0       0      12        0.0%
+BANK3               EF      0       0      10        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F     1A      2C       1       46.3%
+BITSFR_5             0      0       0      40        0.0%
+SFR_5                0      0       0      40        0.0%
+BITSFR_4             0      0       0      40        0.0%
+SFR_4                0      0       0      40        0.0%
+BITSFR_3             0      0       0      40        0.0%
+SFR_3                0      0       0      40        0.0%
+BITSFR_2             0      0       0      40        0.0%
+SFR_2                0      0       0      40        0.0%
+BITSFR_1             0      0       0      40        0.0%
+SFR_1                0      0       0      40        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+STACK                0      0       4       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      2C      11        0.0%
+DATA                 0      0      30       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.21 build 54009 
+Symbol Table                                                                                   Mon May 26 10:50:40 2014
+
+                     l21 7A46                       l18 79E4                       l88 7CFE  
+            __CFG_BORV$3 000000                      l251 7A06                      l260 7A40  
+                    l252 7A08                      l255 7A1A                      l184 78E6  
+                    l256 7A1C                      l521 78D0                      l257 7A26  
+                    l249 79FA                      l258 7A28                      l294 78F6  
+                    u877 78D2             __CFG_BOR$OFF 000000                      _arr 001B  
+                    wreg 000FE8             __CFG_FOSC$HS 000000             __CFG_LVP$OFF 000000  
+           __CFG_WDT$OFF 000000                     l1113 7AB0                     l1043 7936  
+                   l1211 7BD0                     l1051 7956                     l1141 7B00  
+                   l1039 7928                     l1127 7AD8                     l1047 7948  
+                   l1225 7BF8                     l1081 7A5A                     l1155 7B2C  
+                   l1069 79E2                     l1309 7CEC                     l1253 7C48  
+                   l1317 7972                     l1239 7C20                     l1183 7B7C  
+                   l1281 7C9C                     l1169 7B54                     l1089 7A6E  
+                   l1267 7C74                     l1099 7A88                     l1197 7BA4  
+                   l1295 7CC4                     _main 795E                     fsr1l 000FE1  
+             _GetKey$100 000E               _GetKey$101 000F               _GetKey$110 0018  
+             _GetKey$102 0010               _GetKey$103 0011               _GetKey$104 0012  
+             _GetKey$105 0013               _GetKey$106 0014               _GetKey$107 0015  
+             _GetKey$108 0016               _GetKey$109 0017                     start 0002  
+          __CFG_IESO$OFF 000000      __end_of_ConfigUSART 790C            __CFG_MCLRE$ON 000000  
+            _Delay1KTCYx 78D0            __CFG_PLLDIV$5 000000                    ?_main 0001  
+                  _RCREG 000FAE                    _RCSTA 000FAB                    _SPBRG 000FAF  
+                  _PORTD 000F83            __CFG_USBDIV$1 000000                    _TRISD 000F95  
+                  _TXREG 000FAD                    _TXSTA 000FAC            __CFG_PWRT$OFF 000000  
+         __CFG_FCMEN$OFF 000000                    _Write 78DE                    tablat 000FF5  
+                  status 000FD8           __CFG_ICPRT$OFF 000000           WriteUSART@data 0001  
+        __initialization 7984             __end_of_main 7984                   ??_main 001A  
+          __activetblptr 000000          __CFG_CCP2MX$OFF 000000                   ?_Write 0002  
+            _ConfigUSART 78FC                   _SPBRGH 000FB0                   _GetKey 7A42  
+       __end_of_delay_ms 793E         __end_of_delay_us 795E           __CFG_XINST$OFF 000000  
+     __size_of_OpenUSART 005C           __CFG_STVREN$ON 000000               Print_key@a 0006  
+           __pdataCOMRAM 001B       __size_of_Print_key 003A                   tblptrh 000FF7  
+                 tblptrl 000FF6                   tblptru 000FF8               __accesstop 0060  
+__end_of__initialization 79A6          __CFG_PBADEN$OFF 000000               _WriteUSART 78EC  
+         __pcstackCOMRAM 0001            __end_of_Write 78EC                  ??_Write 0003  
+      __end_of_OpenUSART 7A42                  ?_GetKey 0001        __end_of_Print_key 79E6  
+           ?_Delay1KTCYx 0001         Print_key@element 0005                ?_delay_ms 0002  
+              ?_delay_us 0002          __CFG_VREGEN$OFF 000000          __size_of_GetKey 02BE  
+                __Hparam 0000                  __Lparam 0000              ?_WriteUSART 0001  
+                __pcinit 7984                  __ramtop 0800                  __ptext0 795E  
+                __ptext1 78FC                  __ptext2 79E6                  __ptext3 793E  
+                __ptext4 7A42                  __ptext5 79AC                  __ptext6 78DE  
+                __ptext7 78EC                  __ptext8 791E                  __ptext9 78D0  
+             ??_delay_ms 0003               ??_delay_us 0003     end_of_initialization 79A6  
+           ?_ConfigUSART 0004      ConfigUSART@config_1 0004      ConfigUSART@config_2 0005  
+              GetKey@row 0019                _RCSTAbits 000FAB                  postdec1 000FE5  
+                postinc0 000FEE                _PORTDbits 000F83                _TRISCbits 000F94  
+    __size_of_WriteUSART 0010                _TXSTAbits 000FAC                _GetKey$95 0009  
+              _GetKey$96 000A                _GetKey$97 000B                _GetKey$98 000C  
+              _GetKey$99 000D           __end_of_GetKey 7D00            __pidataCOMRAM 790D  
+   __size_of_Delay1KTCYx 000E      start_initialization 7984                _OpenUSART 79E6  
+               ??_GetKey 0008                _Print_key 79AC         __CFG_LPT1OSC$OFF 000000  
+            __pbssCOMRAM 002C        __size_of_delay_ms 0020        __size_of_delay_us 0020  
+        Delay1KTCYx@unit 0001               ?_OpenUSART 0001     __size_of_ConfigUSART 0010  
+              Write@data 0002             ??_WriteUSART 0002               ?_Print_key 0005  
+         __size_of_Write 000E       __end_of_WriteUSART 78FC                delay_ms@i 0004  
+              delay_ms@t 0002                delay_us@i 0004                delay_us@t 0002  
+               _PIE1bits 000F9D                 _PIR1bits 000F9E         __CFG_WDTPS$32768 000000  
+              copy_data0 799A              ??_OpenUSART 0004          OpenUSART@config 0001  
+               __Hrparam 0000                 __Lrparam 0000              ??_Print_key 0007  
+               _delay_ms 791E                 _delay_us 793E                 _config_1 002B  
+          __size_of_main 0026            ??_Delay1KTCYx 0002    __CFG_CPUDIV$OSC1_PLL2 000000  
+         OpenUSART@spbrg 0002      __end_of_Delay1KTCYx 78DE            ??_ConfigUSART 0006  
+           _USART_Status 002C  

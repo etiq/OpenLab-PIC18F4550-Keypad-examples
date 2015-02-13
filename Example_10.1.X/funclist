@@ -1,0 +1,11 @@
+_OpenUSART: CODE, 32122 0 104
+_Delay1KTCYx: CODE, 31910 0 16
+_main: CODE, 32010 0 26
+_Write: CODE, 31962 0 22
+__initialization: CODE, 32036 0 34
+_Get_key: CODE, 32226 0 542
+_Print_key: CODE, 32076 0 46
+_WriteUSART: CODE, 31944 0 18
+_ConfigUSART: CODE, 31894 0 16
+_delay_ms: CODE, 31984 0 26
+Total: 850
