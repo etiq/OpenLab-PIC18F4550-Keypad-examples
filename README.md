@@ -1,8 +1,5 @@
 # OpenLab-Keypad-example
-Keypad examples for OpenLab platform
-
-  Tutorial: http://etiq.in/686
-  
+Keypad examples for OpenLab platform  
   
   Example 10.1: Pull down mode
   
